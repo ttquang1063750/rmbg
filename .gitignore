@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# IDE / editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Claude Code (local tooling)
+.claude/
+
+# Logs / temp
+*.log
+tmp/
+.cache/
+
+# Node (nếu sau này thêm tooling)
+node_modules/

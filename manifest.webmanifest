@@ -1,0 +1,19 @@
+{
+  "name": "Xoá Phông Ảnh",
+  "short_name": "Xoá Phông",
+  "description": "Xoá màu nền ảnh, tạo ảnh PNG/WebP trong suốt ngay trên trình duyệt.",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#c3002f",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

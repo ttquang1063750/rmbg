@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xoá Phông Ảnh Online - Tạo ảnh PNG/WebP trong suốt</title>
+
+    <!-- SEO -->
+    <meta name="description" content="Công cụ xoá phông (xoá nền) ảnh trực tuyến miễn phí, chạy 100% trên trình duyệt. Xoá màu nền, cắt ảnh và xuất PNG/WebP trong suốt — không cần upload, bảo mật tuyệt đối.">
+    <meta name="keywords" content="xoá phông, xoá nền ảnh, remove background, tạo ảnh trong suốt, PNG trong suốt, WebP, công cụ ảnh online">
+    <meta name="author" content="js-tools.org">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#c3002f">
+    <link rel="canonical" href="https://rmbg.js-tools.org/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Xoá Phông Ảnh Online - Tạo ảnh PNG/WebP trong suốt">
+    <meta property="og:description" content="Xoá màu nền ảnh ngay trên trình duyệt, không cần upload. Xuất PNG/WebP trong suốt miễn phí.">
+    <meta property="og:url" content="https://rmbg.js-tools.org/">
+    <meta property="og:locale" content="vi_VN">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Xoá Phông Ảnh Online - Tạo ảnh PNG/WebP trong suốt">
+    <meta name="twitter:description" content="Xoá màu nền ảnh ngay trên trình duyệt, không cần upload. Xuất PNG/WebP trong suốt miễn phí.">
+
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="manifest" href="manifest.webmanifest">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="brand">
+                <img src="favicon.svg" alt="Logo Xoá Phông Ảnh" class="logo" width="40" height="40">
+                <h1 class="title">Xoá Phông Ảnh</h1>
+            </div>
+            <p>Xoá màu nền vô nghĩa để tạo ảnh PNG/WebP trong suốt</p>
+        </header>
+
+        <a href="https://js-tools.org/" target="_blank" rel="noopener" class="products-banner">
+            <span class="products-banner-icon">🧰</span>
+            <span class="products-banner-text">
+                <strong>Các sản phẩm khác</strong>
+                <span>Khám phá thêm công cụ tại js-tools.org</span>
+            </span>
+            <svg class="products-banner-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+        </a>
+
+        <!-- Upload Section -->
+        <div id="upload-section" class="upload-section">
+            <svg style="width: 48px; height: 48px; color: var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m17 8-5-5-5 5"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/></svg>
+            <p>Nhấp hoặc kéo thả ảnh vào đây để bắt đầu</p>
+            <input type="file" id="file-input" class="hidden-input" accept="image/*">
+        </div>
+
+        <!-- Editor Section (Hidden by default) -->
+        <div id="editor-layout" class="editor-layout" style="display: none;">
+            <div id="preview-container" class="preview-container">
+                <canvas id="main-canvas"></canvas>
+
+                <!-- Crop Selection -->
+                <div id="crop-selection" class="crop-selection" style="display: none;">
+                    <div id="crop-dimensions" class="crop-dimensions">0 x 0 px</div>
+                    <div class="crop-handle tl" data-handle="tl"></div>
+                    <div class="crop-handle tr" data-handle="tr"></div>
+                    <div class="crop-handle bl" data-handle="bl"></div>
+                    <div class="crop-handle br" data-handle="br"></div>
+                    <div class="crop-handle tm" data-handle="tm"></div>
+                    <div class="crop-handle bm" data-handle="bm"></div>
+                    <div class="crop-handle lm" data-handle="lm"></div>
+                    <div class="crop-handle rm" data-handle="rm"></div>
+                    <div class="crop-move-overlay" data-handle="move"></div>
+                </div>
+
+                <!-- Magnifier -->
+                <div id="magnifier" class="magnifier">
+                    <canvas id="mag-canvas" width="180" height="180" class="magnifier-canvas"></canvas>
+                </div>
+
+                <!-- Loading -->
+                <div id="loading-overlay" class="loading-overlay" style="display: none;">
+                    <svg class="animate-spin" style="width: 32px; height: 32px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+                </div>
+            </div>
+
+            <div class="controls">
+                <!-- Crop Actions -->
+                <div class="actions" style="display: flex; gap: var(--size-level-2);">
+                    <button id="btn-toggle-crop" class="btn-secondary" style="flex: 1;">
+                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg> Cắt ảnh (Crop)
+                    </button>
+                    <div id="crop-confirm-actions" style="display: none; flex: 1; gap: var(--size-level-2);">
+                        <button id="btn-apply-crop" class="btn-primary" style="flex: 1;">Xác nhận</button>
+                        <button id="btn-cancel-crop" class="btn-secondary" style="flex: 1;">Huỷ</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label>Màu cần xoá:</label>
+                    <div class="color-presets">
+                        <button class="color-btn preset" data-r="255" data-g="255" data-b="255" style="background-color: rgb(255, 255, 255);" title="Trắng"></button>
+                        <button class="color-btn preset" data-r="0" data-g="0" data-b="0" style="background-color: rgb(0, 0, 0);" title="Đen"></button>
+                        <button id="btn-pipette" class="color-btn" style="background-color: #fff; display: flex; align-items: center; justify-content: center;" title="Sử dụng Pipette">
+                            <svg style="width: 16px; height: 16px; color: #000;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12"/><path d="m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z"/><path d="m2 22 .414-.414"/></svg>
+                        </button>
+                    </div>
+                    <p>* Nhấp trực tiếp vào ảnh hoặc dùng nút Pipette</p>
+                </div>
+
+                <div class="control-group">
+                    <label>Độ nhạy (Tolerance): <span id="val-tolerance">30</span></label>
+                    <input type="range" id="input-tolerance" min="0" max="442" value="30">
+                </div>
+
+                <div class="control-group">
+                    <label>Làm mịn cạnh (Feather): <span id="val-feather">2</span>px</label>
+                    <input type="range" id="input-feather" min="0" max="10" value="2">
+                </div>
+
+                <div class="control-group">
+                    <label>Co mặt nạ (Shrink): <span id="val-shrink">0</span>px</label>
+                    <input type="range" id="input-shrink" min="0" max="8" value="0">
+                </div>
+
+                <div class="control-group">
+                    <label class="check-row">
+                        <input type="checkbox" id="input-despill"> Khử viền màu (Despill)
+                    </label>
+                    <label class="check-row">
+                        <input type="checkbox" id="input-flood"> Chỉ xoá nền nối từ mép
+                    </label>
+                </div>
+
+                <div class="control-group">
+                    <label>Định dạng tải về:</label>
+                    <select id="select-format" style="padding: var(--size-level-2); border-radius: var(--size-level-1); border: 1px solid #ddd; background-color: #f9f9f9; color: #333;">
+                        <option value="png">PNG (Trong suốt tốt nhất)</option>
+                        <option value="webp">WebP (Dung lượng nhẹ)</option>
+                    </select>
+                </div>
+
+                <div class="actions">
+                    <button id="btn-reset" class="btn-secondary">
+                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 11v6"/><path d="M14 11v6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M3 6h18"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Chọn ảnh khác
+                    </button>
+                </div>
+
+                <div class="actions">
+                    <button id="btn-download" class="btn-primary">
+                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> <span id="txt-download">Tải về PNG</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Đăng ký service worker để hỗ trợ chạy offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').catch(() => {});
+            });
+        }
+    </script>
+</body>
+</html>
