@@ -37,6 +37,9 @@
 - `worker.js`: Luồng xử lý pixel tách biệt.
 - `sw.js`: Service worker cache tài nguyên cho chế độ offline.
 - `manifest.webmanifest`: Khai báo PWA (tên, icon, theme color).
+- `favicon.svg`: Favicon / logo dùng chung.
+- `robots.txt`: Cho phép crawler index, trỏ tới sitemap.
+- `sitemap.xml`: Khai báo URL cho công cụ tìm kiếm.
 
 ## 📖 Cách sử dụng
 Chỉ cần tải code về và mở file `index.html` bằng bất kỳ trình duyệt hiện đại nào (Chrome, Edge, Firefox).
