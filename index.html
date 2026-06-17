@@ -88,15 +88,18 @@
             </div>
 
             <div class="controls">
-                <!-- Crop Actions -->
+                <!-- Mode Actions -->
                 <div class="actions" style="display: flex; gap: var(--size-level-2);">
-                    <button id="btn-toggle-crop" class="btn-secondary" style="flex: 1;">
-                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg> Cắt ảnh (Crop)
+                    <button id="btn-toggle-zoom" class="btn-secondary" style="flex: 1;">
+                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6"/><path d="M8 11h6"/></svg> Zoom
                     </button>
-                    <div id="crop-confirm-actions" style="display: none; flex: 1; gap: var(--size-level-2);">
-                        <button id="btn-apply-crop" class="btn-primary" style="flex: 1;">Xác nhận</button>
-                        <button id="btn-cancel-crop" class="btn-secondary" style="flex: 1;">Huỷ</button>
-                    </div>
+                    <button id="btn-toggle-crop" class="btn-secondary" style="flex: 1;">
+                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg> Cắt ảnh
+                    </button>
+                </div>
+                <div id="crop-confirm-actions" style="display: none; gap: var(--size-level-2);">
+                    <button id="btn-apply-crop" class="btn-primary" style="flex: 1;">Xác nhận crop</button>
+                    <button id="btn-cancel-crop" class="btn-secondary" style="flex: 1;">Huỷ crop</button>
                 </div>
 
                 <div class="control-group">
@@ -109,6 +112,7 @@
                         </button>
                     </div>
                     <p>* Nhấp trực tiếp vào ảnh hoặc dùng nút Pipette</p>
+                    <input type="text" id="input-color-hex" placeholder="Nhập hex: FFFFFF" maxlength="6" style="padding: var(--size-level-1); border-radius: var(--size-level-1); border: 1px solid #ddd; font-family: monospace; font-size: 0.8rem; text-transform: uppercase;">
                 </div>
 
                 <div class="control-group">

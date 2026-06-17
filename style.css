@@ -160,26 +160,67 @@ header p { margin: 0; }
 }
 
 @media (max-width: 800px) {
-  .app-container {
-    padding: var(--size-level-3);
-    gap: var(--size-level-3);
+  html, body {
+    height: auto;
+    overflow: visible;
+    position: static;
   }
-  
+
+  body {
+    min-height: 100vh;
+  }
+
+  .app-container {
+    padding: var(--size-level-2);
+    gap: var(--size-level-2);
+    height: auto;
+    max-height: none;
+  }
+
   .title {
     font-size: 1.5rem;
   }
-  
+
   .editor-layout {
     flex-direction: column;
-    gap: var(--size-level-3);
+    gap: var(--size-level-2);
+    height: auto;
+    max-height: none;
   }
-  
+
+  .preview-container {
+    height: 50vh;
+    min-height: 50vh;
+    max-height: 50vh;
+  }
+
   .controls {
     flex: 0 0 auto !important;
     width: 100% !important;
     height: auto !important;
-    max-height: 45%;
-    padding: var(--size-level-3) !important;
+    max-height: 60vh;
+    padding: var(--size-level-2) !important;
+    gap: var(--size-level-1) !important;
+    overflow-y: auto !important;
+  }
+
+  .magnifier:not(.visible) {
+    display: none !important;
+  }
+
+  input[type="range"] {
+    height: 28px;
+    cursor: pointer;
+  }
+
+  button {
+    padding: 0.8em 1.2em;
+    font-size: 1rem;
+  }
+
+  .color-btn {
+    width: 36px;
+    height: 36px;
   }
 }
 
@@ -398,6 +439,7 @@ button {
 .btn-primary:hover { filter: brightness(0.92); }
 .btn-secondary { background-color: #f9f9f9; color: #1a1a1a; flex: 1; border: 1px solid #ddd; }
 .btn-secondary:hover { border-color: var(--accent); }
+.btn-secondary.active { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
 
 .loading-overlay {
   position: absolute;

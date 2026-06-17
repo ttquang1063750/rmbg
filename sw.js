@@ -1,5 +1,5 @@
 // Service worker: cache toàn bộ tài nguyên tĩnh để chạy offline.
-const CACHE = 'rmbg-v8';
+const CACHE = 'rmbg-v23';
 const ASSETS = [
   './',
   './index.html',
