@@ -226,7 +226,6 @@ header p { margin: 0; }
 
 .preview-container {
   position: relative;
-  background-color: #9aa0a6;
   border-radius: var(--size-level-2);
   box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
   display: flex;
