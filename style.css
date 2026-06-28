@@ -402,6 +402,39 @@ input[type="range"] {
   transform: scale(1.1);
 }
 
+.bg-options {
+  display: flex;
+  gap: var(--size-level-2);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.bg-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-btn.active { border-color: var(--accent); transform: scale(1.1); }
+
+.bg-checker {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: repeating-conic-gradient(#ccc 0% 25%, #fff 0% 50%) 50% / 8px 8px;
+}
+
+button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
 .actions {
   display: flex;
   gap: var(--size-level-2);

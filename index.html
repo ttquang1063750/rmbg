@@ -6,8 +6,8 @@
     <title>Xoá Phông Ảnh Online - Tạo ảnh PNG/WebP trong suốt</title>
 
     <!-- SEO -->
-    <meta name="description" content="Công cụ xoá phông (xoá nền) ảnh trực tuyến miễn phí, chạy 100% trên trình duyệt. Xoá màu nền, làm mịn cạnh, co mặt nạ, khử viền màu, cắt ảnh và xuất PNG/WebP trong suốt — không cần upload lên server, bảo mật tuyệt đối. Hỗ trợ zoom, pipette chọn màu, hoạt động offline.">
-    <meta name="keywords" content="xoá phông, xoá nền ảnh, remove background, tạo ảnh trong suốt, PNG trong suốt, WebP, công cụ ảnh online, xoá nền online, background remover, ảnh trong suốt, cắt ảnh, crop ảnh, chỉnh sửa ảnh online, xoá phông miễn phí">
+    <meta name="description" content="Công cụ xoá phông (xoá nền) ảnh trực tuyến miễn phí, chạy 100% trên trình duyệt. Xoá màu nền, làm mịn cạnh, co mặt nạ, khử viền màu, thay nền mới, cắt ảnh, undo/redo và xuất PNG/WebP trong suốt — không cần upload lên server, bảo mật tuyệt đối. Hỗ trợ zoom, pipette chọn màu, copy/paste clipboard, hoạt động offline.">
+    <meta name="keywords" content="xoá phông, xoá nền ảnh, remove background, tạo ảnh trong suốt, PNG trong suốt, WebP, công cụ ảnh online, xoá nền online, background remover, ảnh trong suốt, cắt ảnh, crop ảnh, chỉnh sửa ảnh online, xoá phông miễn phí, thay nền ảnh, đổi nền ảnh, green screen, undo redo, copy paste ảnh">
     <meta name="author" content="js-tools.org">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#c3002f">
@@ -17,7 +17,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="js-tools.org">
     <meta property="og:title" content="Xoá Phông Ảnh Online - Tạo ảnh PNG/WebP trong suốt">
-    <meta property="og:description" content="Xoá màu nền ảnh ngay trên trình duyệt, không cần upload. Làm mịn cạnh, khử viền màu, cắt ảnh và xuất PNG/WebP trong suốt miễn phí.">
+    <meta property="og:description" content="Xoá màu nền ảnh ngay trên trình duyệt, không cần upload. Thay nền, cắt ảnh, undo/redo, copy/paste và xuất PNG/WebP trong suốt miễn phí.">
     <meta property="og:url" content="https://rmbg.js-tools.org/">
     <meta property="og:locale" content="vi_VN">
     <meta property="og:image" content="https://rmbg.js-tools.org/favicon.svg">
@@ -25,7 +25,7 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Xoá Phông Ảnh Online - Tạo ảnh PNG/WebP trong suốt">
-    <meta name="twitter:description" content="Xoá màu nền ảnh ngay trên trình duyệt, không cần upload. Làm mịn cạnh, khử viền màu, xuất PNG/WebP trong suốt miễn phí.">
+    <meta name="twitter:description" content="Xoá màu nền ảnh ngay trên trình duyệt, không cần upload. Thay nền, cắt ảnh, undo/redo, copy/paste và xuất PNG/WebP trong suốt miễn phí.">
     <meta name="twitter:image" content="https://rmbg.js-tools.org/favicon.svg">
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -88,13 +88,19 @@
             </div>
 
             <div class="controls">
-                <!-- Mode Actions -->
+                <!-- Undo/Redo + Mode Actions -->
                 <div class="actions" style="display: flex; gap: var(--size-level-2);">
-                    <button id="btn-toggle-zoom" class="btn-secondary" style="flex: 1;">
-                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6"/><path d="M8 11h6"/></svg> Zoom
+                    <button id="btn-undo" class="btn-secondary" title="Hoàn tác (Ctrl+Z)" disabled>
+                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M3 13a9 9 0 1 0 2.13-5.36L3 7"/></svg>
                     </button>
-                    <button id="btn-toggle-crop" class="btn-secondary" style="flex: 1;">
-                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg> Cắt ảnh
+                    <button id="btn-redo" class="btn-secondary" title="Làm lại (Ctrl+Y)" disabled>
+                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M21 13a9 9 0 1 1-2.13-5.36L21 7"/></svg>
+                    </button>
+                    <button id="btn-toggle-zoom" class="btn-secondary" title="Zoom">
+                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    </button>
+                    <button id="btn-toggle-crop" class="btn-secondary" title="Cắt ảnh">
+                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v14a2 2 0 0 0 2 2h14"/><path d="M18 22V8a2 2 0 0 0-2-2H2"/></svg>
                     </button>
                 </div>
                 <div id="crop-confirm-actions" style="display: none; gap: var(--size-level-2);">
@@ -107,11 +113,14 @@
                     <div class="color-presets">
                         <button class="color-btn preset" data-r="255" data-g="255" data-b="255" style="background-color: rgb(255, 255, 255);" title="Trắng"></button>
                         <button class="color-btn preset" data-r="0" data-g="0" data-b="0" style="background-color: rgb(0, 0, 0);" title="Đen"></button>
+                        <button class="color-btn preset" data-r="0" data-g="177" data-b="64" style="background-color: rgb(0, 177, 64);" title="Xanh lá (Green screen)"></button>
+                        <button class="color-btn preset" data-r="0" data-g="0" data-b="255" style="background-color: rgb(0, 0, 255);" title="Xanh dương (Blue screen)"></button>
+                        <button class="color-btn preset" data-r="128" data-g="128" data-b="128" style="background-color: rgb(128, 128, 128);" title="Xám"></button>
+                        <button class="color-btn preset" data-r="255" data-g="0" data-b="0" style="background-color: rgb(255, 0, 0);" title="Đỏ"></button>
                         <button id="btn-pipette" class="color-btn" style="background-color: #fff; display: flex; align-items: center; justify-content: center;" title="Sử dụng Pipette">
                             <svg style="width: 16px; height: 16px; color: #000;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 9-8.414 8.414A2 2 0 0 0 3 18.828v1.344a2 2 0 0 1-.586 1.414A2 2 0 0 1 3.828 21h1.344a2 2 0 0 0 1.414-.586L15 12"/><path d="m18 9 .4.4a1 1 0 1 1-3 3l-3.8-3.8a1 1 0 1 1 3-3l.4.4 3.4-3.4a1 1 0 1 1 3 3z"/><path d="m2 22 .414-.414"/></svg>
                         </button>
                     </div>
-                    <p>* Nhấp trực tiếp vào ảnh hoặc dùng nút Pipette</p>
                     <input type="text" id="input-color-hex" placeholder="Nhập hex: FFFFFF" maxlength="6" style="padding: var(--size-level-1); border-radius: var(--size-level-1); border: 1px solid #ddd; font-family: monospace; font-size: 0.8rem; text-transform: uppercase;">
                 </div>
 
@@ -140,6 +149,25 @@
                 </div>
 
                 <div class="control-group">
+                    <label>Nền thay thế:</label>
+                    <div class="bg-options">
+                        <button id="bg-none" class="bg-btn active" title="Trong suốt">
+                            <span class="bg-checker"></span>
+                        </button>
+                        <button id="bg-white" class="bg-btn" data-color="#ffffff" title="Trắng" style="background:#fff;"></button>
+                        <button id="bg-black" class="bg-btn" data-color="#000000" title="Đen" style="background:#000;"></button>
+                        <button id="bg-red" class="bg-btn" data-color="#ff0000" title="Đỏ" style="background:#ff0000;"></button>
+                        <button id="bg-green" class="bg-btn" data-color="#00b140" title="Xanh lá" style="background:#00b140;"></button>
+                        <button id="bg-blue" class="bg-btn" data-color="#0000ff" title="Xanh dương" style="background:#0000ff;"></button>
+                        <input type="color" id="bg-custom-color" title="Chọn màu khác" style="width:26px;height:26px;padding:0;border:2px solid #ddd;border-radius:50%;cursor:pointer;">
+                        <button id="bg-image" class="bg-btn" title="Chọn ảnh nền">
+                            <svg style="width:14px;height:14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                        </button>
+                    </div>
+                    <input type="file" id="bg-image-input" class="hidden-input" accept="image/*">
+                </div>
+
+                <div class="control-group">
                     <label>Định dạng tải về:</label>
                     <select id="select-format" style="padding: var(--size-level-2); border-radius: var(--size-level-1); border: 1px solid #ddd; background-color: #f9f9f9; color: #333;">
                         <option value="png">PNG (Trong suốt tốt nhất)</option>
@@ -154,6 +182,9 @@
                 </div>
 
                 <div class="actions">
+                    <button id="btn-copy" class="btn-secondary">
+                        <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy
+                    </button>
                     <button id="btn-download" class="btn-primary">
                         <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/></svg> <span id="txt-download">Tải về PNG</span>
                     </button>
