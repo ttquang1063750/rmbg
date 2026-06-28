@@ -6,8 +6,8 @@
     <title>Xoá Phông Ảnh Online - Tạo ảnh PNG/WebP trong suốt</title>
 
     <!-- SEO -->
-    <meta name="description" content="Công cụ xoá phông (xoá nền) ảnh trực tuyến miễn phí, chạy 100% trên trình duyệt. Xoá màu nền, cắt ảnh và xuất PNG/WebP trong suốt — không cần upload, bảo mật tuyệt đối.">
-    <meta name="keywords" content="xoá phông, xoá nền ảnh, remove background, tạo ảnh trong suốt, PNG trong suốt, WebP, công cụ ảnh online">
+    <meta name="description" content="Công cụ xoá phông (xoá nền) ảnh trực tuyến miễn phí, chạy 100% trên trình duyệt. Xoá màu nền, làm mịn cạnh, co mặt nạ, khử viền màu, cắt ảnh và xuất PNG/WebP trong suốt — không cần upload lên server, bảo mật tuyệt đối. Hỗ trợ zoom, pipette chọn màu, hoạt động offline.">
+    <meta name="keywords" content="xoá phông, xoá nền ảnh, remove background, tạo ảnh trong suốt, PNG trong suốt, WebP, công cụ ảnh online, xoá nền online, background remover, ảnh trong suốt, cắt ảnh, crop ảnh, chỉnh sửa ảnh online, xoá phông miễn phí">
     <meta name="author" content="js-tools.org">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#c3002f">
@@ -15,15 +15,18 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="js-tools.org">
     <meta property="og:title" content="Xoá Phông Ảnh Online - Tạo ảnh PNG/WebP trong suốt">
-    <meta property="og:description" content="Xoá màu nền ảnh ngay trên trình duyệt, không cần upload. Xuất PNG/WebP trong suốt miễn phí.">
+    <meta property="og:description" content="Xoá màu nền ảnh ngay trên trình duyệt, không cần upload. Làm mịn cạnh, khử viền màu, cắt ảnh và xuất PNG/WebP trong suốt miễn phí.">
     <meta property="og:url" content="https://rmbg.js-tools.org/">
     <meta property="og:locale" content="vi_VN">
+    <meta property="og:image" content="https://rmbg.js-tools.org/favicon.svg">
 
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Xoá Phông Ảnh Online - Tạo ảnh PNG/WebP trong suốt">
-    <meta name="twitter:description" content="Xoá màu nền ảnh ngay trên trình duyệt, không cần upload. Xuất PNG/WebP trong suốt miễn phí.">
+    <meta name="twitter:description" content="Xoá màu nền ảnh ngay trên trình duyệt, không cần upload. Làm mịn cạnh, khử viền màu, xuất PNG/WebP trong suốt miễn phí.">
+    <meta name="twitter:image" content="https://rmbg.js-tools.org/favicon.svg">
 
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" href="favicon.svg">
@@ -32,23 +35,20 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <header>
-            <div class="brand">
-                <img src="favicon.svg" alt="Logo Xoá Phông Ảnh" class="logo" width="40" height="40">
-                <h1 class="title">Xoá Phông Ảnh</h1>
-            </div>
-            <p>Xoá màu nền vô nghĩa để tạo ảnh PNG/WebP trong suốt</p>
-        </header>
+    <header class="top-bar">
+        <div class="top-bar-left">
+            <img src="favicon.svg" alt="Logo Xoá Phông Ảnh" class="logo" width="32" height="32">
+            <span class="top-bar-title">Xoá Phông Ảnh</span>
+        </div>
+        <div class="top-bar-right">
+            <a href="https://js-tools.org/" target="_blank" rel="noopener" class="top-bar-link">Other apps <svg style="width: 14px; height: 14px; vertical-align: -2px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg></a>
+            <a href="https://js-tools.org/donate" target="_blank" rel="noopener" class="top-bar-donate">♥ Donate</a>
+        </div>
+    </header>
 
-        <a href="https://js-tools.org/" target="_blank" rel="noopener" class="products-banner">
-            <span class="products-banner-icon">🧰</span>
-            <span class="products-banner-text">
-                <strong>Các sản phẩm khác</strong>
-                <span>Khám phá thêm công cụ tại js-tools.org</span>
-            </span>
-            <svg class="products-banner-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-        </a>
+    <div class="app-container">
+
+        <p class="subtitle">Xoá màu nền vô nghĩa để tạo ảnh PNG/WebP trong suốt</p>
 
         <!-- Upload Section -->
         <div id="upload-section" class="upload-section">
